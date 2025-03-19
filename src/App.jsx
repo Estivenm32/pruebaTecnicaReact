@@ -37,25 +37,21 @@ export const App = () => {
       {/* Contenedor con imagen de fondo que cubre toda la página */}
       <Box
         sx={{
-          minHeight: "10vh",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          paddingTop: "20px", // Asegura que no esté pegado al header 
-          paddingBottom: "30px", 
+          minHeight: "100vh",  // Asegura que el contenedor ocupe al menos la altura completa de la ventana
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          flexDirection: "column",  // Apila los elementos verticalmente
+          justifyContent: "space-between",  // Empuja el footer hacia abajo
         }}
       >
         {/* Contenedor para Agregar Producto */}
         <Container
           sx={{
-            backgroundColor: "rgba(81, 81, 81, 0.2)", // Fondo semitransparente para el contenedor Agregar Producto
+            backgroundColor: "rgba(81, 81, 81, 0.2)",
             padding: "20px",
             marginTop: "30px",
             borderRadius: "8px",
-            maxWidth: "100%", // El contenedor ocupa el 100% del ancho
-            marginBottom: "20px", // Agrega un margen en la parte inferior
+            maxWidth: "100%",
+            marginBottom: "20px",  // Deja un pequeño espacio antes del siguiente contenedor
           }}
         >
           <center>
@@ -65,7 +61,7 @@ export const App = () => {
           <ProductForm
             addProduct={addProduct}
             editProduct={editProduct}
-            products={products}  // Pasamos la lista de productos     
+            products={products}  // Pasamos la lista de productos
             currentProduct={currentProduct}
             isEditing={isEditing}
             setEditing={setEditing}
@@ -75,12 +71,12 @@ export const App = () => {
         {/* Contenedor para Tabla de Productos Agregados */}
         <Container
           sx={{
-            backgroundColor: "rgba(81, 81, 81, 0.2)", // Fondo semitransparente para el contenedor de Tabla
+            backgroundColor: "rgba(81, 81, 81, 0.2)",
             padding: "20px",
             marginTop: "30px",
             borderRadius: "8px",
-            maxWidth: "100%", // El contenedor ocupa el 100% del ancho 
-            marginBottom: "20px", // Agrega un margen en la parte inferior 
+            maxWidth: "100%",
+            marginBottom: "20px",
           }}
         >
           <ProductList
@@ -90,8 +86,7 @@ export const App = () => {
             setEditing={setEditing}
           />
         </Container>
-        <br />
- 
+
         {/* Footer con el texto */}
         <Box
           sx={{
@@ -99,12 +94,12 @@ export const App = () => {
             color: "white",
             textAlign: "center",
             padding: "10px 0",
-            position: "fixed",
+            position: "relative",  // Cambié 'fixed' a 'relative' para que se ajuste al final sin solaparse
             bottom: 0,
-            width: "99.1%",
+            width: "100%",  // Asegura que el footer ocupe el ancho completo de la página
           }}
         >
-          <Typography variant="body2" style={{marginBottom: "1%", fontSize: "20px"}}>
+          <Typography variant="body2" style={{ marginBottom: "1%", fontSize: "20px" }}>
             © 2025 - Todos los derechos reservados
           </Typography>
         </Box>
