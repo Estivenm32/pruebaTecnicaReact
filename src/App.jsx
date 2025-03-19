@@ -26,10 +26,10 @@ export const App = () => {
   return (
     <>
       {/* Header con el título */}
-      <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+      <AppBar position="static" sx={{ backgroundColor: "#429f95" }}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }} style={{fontSize: "35px"}}>
-            Sistema para la Gestión de Productos
+          <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }} style={{fontSize: "20px"}}>
+            Sistema para la Gestión de Productos 
           </Typography>
         </Toolbar>
       </AppBar>
@@ -91,11 +91,11 @@ export const App = () => {
           />
         </Container>
         <br />
-
+ 
         {/* Footer con el texto */}
         <Box
           sx={{
-            backgroundColor: "#1976d2",
+            backgroundColor: "#115c63",
             color: "white",
             textAlign: "center",
             padding: "10px 0",
