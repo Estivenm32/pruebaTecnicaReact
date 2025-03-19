@@ -61,7 +61,7 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
     setDescripcion("");
     setCantidad("");
     setCreacion("");
-    setEditing(false); // Cierra el modal después de la edición
+    setEditing(false); // Cierra el modal después de la edición 
   };
 
   const handleCloseDialog = () => {
@@ -79,14 +79,21 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                label="Código"
-                variant="outlined"
-                fullWidth
-                value={codigo}
-                onChange={(e) => setCodigo(e.target.value)}
-                required
-              />
+            <TextField
+              label="Código"
+              variant="outlined"
+              fullWidth
+              value={codigo}
+              type="number"   
+              onChange={(e) => {
+                const value = e.target.value;
+                // Validar si el valor es un número y actualizar solo si es válido
+                if (/^\d*$/.test(value)) {  // Permite solo números 
+                  setCodigo(value);
+                }
+              }}
+              required
+            />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -109,15 +116,21 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                label="Cantidad"
-                variant="outlined"
-                fullWidth
-                type="number"
-                value={cantidad}
-                onChange={(e) => setCantidad(e.target.value)}
-                required
-              />
+            <TextField
+              label="Cantidad"
+              variant="outlined"
+              fullWidth
+              type="number"
+              value={cantidad}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Validar si el valor es un número y actualizar solo si es válido
+                if (/^\d*$/.test(value)) {  // Permite solo números
+                  setCantidad(value);
+                }
+              }}
+              required
+            />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
