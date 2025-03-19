@@ -2,6 +2,7 @@ import { TextField, Button, Grid, Dialog, DialogActions, DialogContent, DialogTi
 import { useState, useEffect } from "react";
 
 export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing, setEditing, products }) => {
+  // Los estados estarán vacíos inicialmente para el formulario de agregar
   const [codigo, setCodigo] = useState("");
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -10,14 +11,22 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
   const [openDialog, setOpenDialog] = useState(false); // Estado para el modal de advertencia
 
   useEffect(() => {
-    if (currentProduct) {
+    if (isEditing && currentProduct) {
+      // Solo si estamos editando, llenar los campos con los datos del producto seleccionado
       setCodigo(currentProduct.codigo);
       setNombre(currentProduct.nombre);
       setDescripcion(currentProduct.descripcion);
       setCantidad(currentProduct.cantidad);
       setCreacion(new Date(currentProduct.creacion).toISOString().split('T')[0]); // Convierte la fecha a YYYY-MM-DD
+    } else {
+      // Si no estamos editando, limpiamos los campos
+      setCodigo("");
+      setNombre("");
+      setDescripcion("");
+      setCantidad("");
+      setCreacion("");
     }
-  }, [currentProduct]);
+  }, [currentProduct, isEditing]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +55,7 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
       addProduct(newProduct); // Agrega un nuevo producto
     }
   
+    // Después de agregar o editar, cerramos el modal y limpiamos los campos
     setCodigo("");
     setNombre("");
     setDescripcion("");
@@ -53,7 +63,7 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
     setCreacion("");
     setEditing(false); // Cierra el modal después de la edición
   };
-  
+
   const handleCloseDialog = () => {
     setOpenDialog(false); // Cierra el modal de advertencia
   };
@@ -64,7 +74,7 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
 
   return (
     <>
-      {/* Formulario para agregar un producto (si no estamos editando) */}
+      {/* Formulario para agregar un producto */}
       {!isEditing && (
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -134,7 +144,7 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
 
       {/* Modal para editar un producto */}
       <Dialog open={isEditing} onClose={handleClose} aria-labelledby="edit-product-dialog">
-        <DialogTitle style={{textAlign: 'center', fontSize: '24px', fontWeight: '700'}}>Editar Producto</DialogTitle>
+        <DialogTitle style={{ textAlign: 'center', fontSize: '24px', fontWeight: '700' }}>Editar Producto</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit} style={{ paddingTop: '20px' }}>
             <Grid container spacing={2}>
@@ -146,7 +156,7 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
                   value={codigo}
                   onChange={(e) => setCodigo(e.target.value)}
                   required
-                  disabled={true} // Deshabilita el campo código en el modal
+                  disabled={true} // Deshabilita el campo código en el modal de edición
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -211,11 +221,11 @@ export const ProductForm = ({ addProduct, editProduct, currentProduct, isEditing
         </DialogContent>
         <DialogActions />
       </Dialog>
- 
+
       {/* Modal de advertencia por código duplicado */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle style={{color: 'red'}}>Error</DialogTitle>
-        <DialogContent style={{fontSize: '20px'}}>
+        <DialogTitle style={{ color: 'red' }}>Error</DialogTitle>
+        <DialogContent style={{ fontSize: '20px' }}>
           Ya existe un producto agregado con ese mismo código. Por favor, ingresa un nuevo código.
         </DialogContent>
         <DialogActions>
